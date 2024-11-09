@@ -1,0 +1,92 @@
+.landing-container {
+    background: linear-gradient(135deg, #f5f1eb 0%, #e8e4ff 100%);
+    min-height: 100vh;
+    padding: 0 2rem;
+  }
+  
+  .landing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+  }
+  
+  .logo {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #2D3436, #000000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .navigation {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  .navigation a {
+    color: #2D3436;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .cta-button {
+    background: #000;
+    color: white !important;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    transition: transform 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .text-content {
+    max-width: 600px;
+    margin: 8rem 0;
+  }
+  
+  .text-content h1 {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, #2D3436, #000000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* color: #000; */
+  }
+  
+  .cta-section {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .primary-button, .secondary-button {
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .primary-button {
+    background: #000;
+    color: white;
+    border: none;
+  }
+  
+  .secondary-button {
+    background: transparent;
+    border: 2px solid #000;
+  }
+  
+  .primary-button:hover, .secondary-button:hover {
+    transform: translateY(-2px);
+  }
+  
