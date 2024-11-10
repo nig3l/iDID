@@ -48,7 +48,7 @@ const LandingPage = () => {
           <p ref={taglineRef}>Transform your achievements into motivation. Share your progress, celebrate your wins.</p>
           <div ref={ctaRef} className="cta-section">
             <button className="primary-button">Start Recording Achievements</button>
-            <button className="secondary-button">See How It Works</button>
+            {/* <button className="secondary-button">See How It Works</button> */}
           </div>
         </div>
       </main>
