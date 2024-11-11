@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { supabase } from '../config/supabaseClient'
+import { useLocation } from 'react-router-dom'
 import './Auth.css'
 
 export default function Auth() {
+  const location = useLocation();
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isSignUp, setIsSignUp] = useState(false)
+  const [isSignUp, setIsSignUp] = useState(location.state?.isSignUp || false)
+
+  useEffect(() => {
+    if (location.state?.isSignUp) {
+      setIsSignUp(true);
+    }
+  }, [location]);
+
+
 
   const handleAuth = async (e) => {
     e.preventDefault()
