@@ -36,10 +36,8 @@ const LandingPage = () => {
       <header className="landing-header">
         <div className="logo">iDID</div>
         <nav className="navigation">
-          <a href="#achievements">Achievements</a>
-          <a href="#dashboard">Dashboard</a>
-          <a href="#weekly">Weekly Review</a>
-          <a href="#login" className="cta-button">Get Started</a>
+          {/* <a href="#dashboard">Dashboard</a> */}
+          {/* <a href="#about">About</a> */}
         </nav>
       </header>
       <main className="landing-content">
@@ -47,8 +45,10 @@ const LandingPage = () => {
           <h1 ref={titleRef}>Track Your Wins</h1>
           <p ref={taglineRef}>Transform your achievements into motivation. Share your progress, celebrate your wins.</p>
           <div ref={ctaRef} className="cta-section">
-            <button className="primary-button">Start Recording Achievements</button>
-            {/* <button className="secondary-button">See How It Works</button> */}
+
+          <button className="secondary-button">Login</button>
+          <a href="#signup" className="cta-button">Get Started</a>
+
           </div>
         </div>
       </main>
