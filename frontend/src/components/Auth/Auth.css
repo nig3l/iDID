@@ -70,3 +70,28 @@
   color: #990000;
   border: 1px solid #ff9999;
 }
+
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1rem;
+  }
+
+  .auth-card {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 1.5rem;
+  }
+
+  .auth-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .auth-card input,
+  .auth-card button {
+    padding: 0.6rem;
+  }
+}

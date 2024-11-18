@@ -51,7 +51,7 @@ const LandingPage = () => {
       <main className="landing-content">
         <div className="text-content">
           <h1 ref={titleRef}>Track Your Wins</h1>
-          <p ref={taglineRef}>Transform your achievements into motivation. Share your progress, celebrate your wins.</p>
+          <p ref={taglineRef}> Instead of a boring TODO list transform your achievements by documenting what you got done. Celebrate your wins with iDID.</p>
           <div ref={ctaRef} className="cta-section">
             <button className="secondary-button" onClick={handleLogin}>Login</button>
             <button className="cta-button" onClick={handleSignup}>Get Started</button>
