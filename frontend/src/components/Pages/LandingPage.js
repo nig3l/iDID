@@ -45,8 +45,11 @@ const LandingPage = () => {
     <div className="landing-container">
       <header className="landing-header">
         <div className="logo">iDID</div>
-        <nav className="navigation">
-        </nav>
+              <nav className="navigation">
+                <a href="/about">About</a>
+                <a href="/pricing">Pricing</a>
+                <a className="cta-button" onClick={handleSignup}>Sign Up</a>
+              </nav>
       </header>
       <main className="landing-content">
         <div className="text-content">

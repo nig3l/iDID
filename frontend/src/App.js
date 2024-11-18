@@ -6,6 +6,8 @@ import Auth from './components/Auth/Auth';
 import Dashboard from './components/Dashboard/Dashboard';
 import History from './components/Dashboard/History';
 import PrivateRoute from './components/Private/PrivateRoute';
+import About from './components/Pages/About';
+import Pricing from './components/Pages/Pricing';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -27,6 +29,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/dashboard" />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={
           <PrivateRoute>
@@ -38,7 +42,6 @@ function App() {
             <History session={session} />
           </PrivateRoute>
         } />
-
       </Routes>
     </Router>
   );
