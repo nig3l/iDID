@@ -317,8 +317,6 @@
 }
 
   
-  
-  /* Navbar Profile Styles */
   .profile-section {
     position: relative;
   }
@@ -364,5 +362,47 @@
   .profile-menu a:hover,
   .profile-menu button:hover {
     background: #f5f5f5;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-nav {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+  
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .stats-section {
+      grid-template-columns: 1fr;
+    }
+  
+    .achievements-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .achievement-form {
+      width: 90%;
+      margin: 0 1rem;
+    }
+  
+    .filter-buttons {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dashboard-content {
+      padding: 0 1rem;
+    }
+  
+    .timeline-item {
+      margin-left: 1rem;
+      padding: 1rem;
+    }
   }
   

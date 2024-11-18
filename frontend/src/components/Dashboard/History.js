@@ -24,7 +24,6 @@ const History = () => {
         new Date(Date.now() - timeRanges[filter] * 24 * 60 * 60 * 1000).toISOString()
       );
     }
-    
     const { data, error } = await query.order('created_at', { ascending: false });
     if (!error) setAchievements(data);
   };
