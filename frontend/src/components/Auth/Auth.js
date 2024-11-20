@@ -38,7 +38,15 @@ export default function Auth() {
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
+          options: {
+            emailRedirectTo: `${window.location.origin}`,
+            data: {
+              full_name: email.split('@')[0], 
+            }
+          }
         })
+        console.log('Signup attempt:', { data, error })
+        
         if (error) throw error
         if (data?.user) {
           await createProfile(data.user.id)
@@ -67,7 +75,6 @@ export default function Auth() {
       setLoading(false)
     }
   }
-
   return (
     <div className="auth-container">
       <div className="auth-card">

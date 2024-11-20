@@ -17,7 +17,7 @@ const NavbarLanding = ({ onSignup }) => {
       <nav className={`navigation ${isMenuOpen ? 'active' : ''}`}>
         <a href="/about">About</a>
         <a href="/pricing">Pricing</a>
-        <a className="cta-button" onClick={onSignup}>Sign Up</a>
+        {/* <a className="cta-button" onClick={onSignup}>Sign Up</a> */}
       </nav>
     </header>
   );
