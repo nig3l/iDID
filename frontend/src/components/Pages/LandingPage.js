@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../Navbar/NavbarLanding';
 import gsap from 'gsap';
 import './LandingPage.css';
 
@@ -43,11 +44,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-container">
-      <header className="landing-header">
-        <div className="logo">iDID</div>
-        <nav className="navigation">
-        </nav>
-      </header>
+      <Navbar onSignup={handleSignup} />
       <main className="landing-content">
         <div className="text-content">
           <h1 ref={titleRef}>Track Your Wins</h1>
