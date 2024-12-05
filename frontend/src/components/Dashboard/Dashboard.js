@@ -55,25 +55,53 @@ const Dashboard = () => {
   const handleAddAchievement = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
-      const achievementData = {
-        subject: String(newAchievement.title), 
-        description: String(newAchievement.description) 
-        
-      };
+      // Explicit logging of the data being sent
+      console.log('Sending achievement data:', {
+        title: newAchievement.subject,  // Ensure this is a non-empty string
+        description: newAchievement.description
+      });
   
-      const response = await achievementService.create(achievementData);
-      
-      if (response.data) {
-        setNewAchievement({ title: '', description: '' });
-        setShowForm(false);
-        fetchAchievements();
+      // Validate input before sending
+      if (!newAchievement.subject || newAchievement.subject.trim() === '') {
+        alert('Please enter a title for your achievement');
+        return;
       }
+  
+      const response = await achievementService.create({
+        title: newAchievement.subject.trim(),  // Trim to remove any whitespace
+        description: newAchievement.description || ''  // Provide a default empty string
+      });
+      
+      console.log('Full create achievement response:', response);
+      
+      // Reset form and refresh achievements
+      setNewAchievement({ subject: '', description: '' });
+      setShowForm(false);
+      fetchAchievements();
     } catch (error) {
-      console.error('Error details:', error.response?.data || error.message);
+      // Comprehensive error logging
+      console.error('Error in handleAddAchievement:', error);
+      
+      // More detailed error information
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error('Error response data:', error.response.data);
+        console.error('Error response status:', error.response.status);
+        console.error('Error response headers:', error.response.headers);
+        
+        // Show user-friendly error message
+        alert(`Failed to add achievement: ${error.response.data.msg || 'Unknown error'}`);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('Error request:', error.request);
+        alert('No response received from server');
+      } else {
+        // Something happened in setting up the request
+        console.error('Error message:', error.message);
+        alert('Error setting up the request');
+      }
     }
   };
-  
 
   const getChartData = () => {
     const dates = achievements.reduce((acc, achievement) => {
