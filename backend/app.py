@@ -4,7 +4,15 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from models import db, User, Achievement
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, resources={
+    r"/*": {
+        "origins": "http://localhost:3000",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///achievements.db'
 app.config['JWT_SECRET_KEY'] = 'your-secret-key'
 jwt = JWTManager(app)

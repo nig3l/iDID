@@ -55,14 +55,25 @@ const Dashboard = () => {
   const handleAddAchievement = async (e) => {
     e.preventDefault();
     try {
-      await achievementService.create(newAchievement);
-      setNewAchievement({ title: '', description: '' });
-      setShowForm(false);
-      fetchAchievements();
+      const token = localStorage.getItem('token');
+      const achievementData = {
+        subject: String(newAchievement.title), 
+        description: String(newAchievement.description) 
+        
+      };
+  
+      const response = await achievementService.create(achievementData);
+      
+      if (response.data) {
+        setNewAchievement({ title: '', description: '' });
+        setShowForm(false);
+        fetchAchievements();
+      }
     } catch (error) {
-      console.error('Error adding achievement:', error);
+      console.error('Error details:', error.response?.data || error.message);
     }
   };
+  
 
   const getChartData = () => {
     const dates = achievements.reduce((acc, achievement) => {
