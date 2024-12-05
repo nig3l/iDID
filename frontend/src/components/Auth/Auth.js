@@ -1,80 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import { supabase } from '../config/supabaseClient'
-import { useLocation } from 'react-router-dom'
-import './Auth.css'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authService } from '../services/api';
+import { useAuth } from '../context/AuthContext';
+import './Auth.css';
 
 export default function Auth() {
-  const location = useLocation();
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isSignUp, setIsSignUp] = useState(location.state?.isSignUp || false)
-  const [message, setMessage] = useState({ type: '', text: '' })
-
-  useEffect(() => {
-    if (location.state?.isSignUp) {
-      setIsSignUp(true);
-    }
-  }, [location]);
-
-  const createProfile = async (userId) => {
-    try {
-      const { error } = await supabase
-        .from('profiles')
-        .insert([{ id: userId }]);
-      if (error) throw error;
-    } catch (error) {
-      console.error('Error creating profile:', error.message);
-    }
-  };
+  const navigate = useNavigate();
+  const { setSession } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [message, setMessage] = useState({ type: '', text: '' });
 
   const handleAuth = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setMessage({ type: '', text: '' })
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ type: '', text: '' });
     
     try {
       if (isSignUp) {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}`,
-            data: {
-              full_name: email.split('@')[0], 
-            }
-          }
-        })
-        console.log('Signup attempt:', { data, error })
-        
-        if (error) throw error
-        if (data?.user) {
-          await createProfile(data.user.id)
-          setMessage({ 
-            type: 'success', 
-            text: 'Registration successful! Please check your email to confirm your account.'
-          })
-        }
+        await authService.signup(email, password);
+        setMessage({
+          type: 'success',
+          text: 'Registration successful! Please login.'
+        });
+        setIsSignUp(false);
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        })
-        if (error) throw error
-        setMessage({ 
-          type: 'success', 
-          text: 'Login successful! Redirecting to dashboard...'
-        })
+        const { data } = await authService.login(email, password);
+        localStorage.setItem('token', data.access_token);
+        setSession({ token: data.access_token });
+        navigate('/dashboard');
       }
     } catch (error) {
-      setMessage({ 
-        type: 'error', 
-        text: error.message 
-      })
+      setMessage({
+        type: 'error',
+        text: error.response?.data?.error || 'An error occurred'
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+
+
   return (
     <div className="auth-container">
       <div className="auth-card">
