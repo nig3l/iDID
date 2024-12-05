@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../config/supabaseClient';
+// import { supabase } from '../config/supabaseClient';
 import Navbar from '../Navbar/Navbar';
+import { achievementService } from '../services/api';
 import './Dashboard.css';
 
 const History = () => {
@@ -12,20 +13,25 @@ const History = () => {
   }, [filter]);
 
   const fetchAchievements = async () => {
-    let query = supabase.from('achievements').select('*');
-    
-    if (filter !== 'all') {
-      const timeRanges = {
-        week: 7,
-        month: 30,
-        year: 365
-      };
-      query = query.gte('created_at', 
-        new Date(Date.now() - timeRanges[filter] * 24 * 60 * 60 * 1000).toISOString()
-      );
+    try {
+      const { data } = await achievementService.getAll();
+      if (filter !== 'all') {
+        const timeRanges = {
+          week: 7,
+          month: 30,
+          year: 365
+        };
+        const filteredData = data.filter(achievement => {
+          const achievementDate = new Date(achievement.created_at);
+          return achievementDate > new Date(Date.now() - timeRanges[filter] * 24 * 60 * 60 * 1000);
+        });
+        setAchievements(filteredData);
+      } else {
+        setAchievements(data);
+      }
+    } catch (error) {
+      console.error('Error fetching achievements:', error);
     }
-    const { data, error } = await query.order('created_at', { ascending: false });
-    if (!error) setAchievements(data);
   };
 
   return (

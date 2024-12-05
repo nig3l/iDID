@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../config/supabaseClient';
+import { achievementService } from '../services/api';
 import Navbar from '../Navbar/Navbar';
 import { Line } from 'react-chartjs-2';
 import './Dashboard.css';
@@ -30,48 +30,37 @@ const Dashboard = () => {
   const [timeframe, setTimeframe] = useState('week');
   const [showForm, setShowForm] = useState(false);
 
+  const fetchAchievements = async () => {
+    try {
+      const { data } = await achievementService.getAll();
+      const filteredData = data.filter(achievement => {
+        const achievementDate = new Date(achievement.created_at);
+        const timeframes = {
+          week: 7,
+          month: 30,
+          year: 365
+        };
+        return achievementDate > new Date(Date.now() - timeframes[timeframe] * 24 * 60 * 60 * 1000);
+      });
+      setAchievements(filteredData);
+    } catch (error) {
+      console.error('Error fetching achievements:', error);
+    }
+  };
+
   useEffect(() => {
     fetchAchievements();
   }, [timeframe]);
 
-  const fetchAchievements = async () => {
-    const timeframes = {
-      week: '7 days',
-      month: '30 days',
-      year: '365 days'
-    };
-
-    const { data, error } = await supabase
-      .from('achievements')
-      .select('*')
-      .gte('created_at', new Date(Date.now() - parseInt(timeframes[timeframe].split(' ')[0]) * 24 * 60 * 60 * 1000).toISOString())
-      .order('created_at', { ascending: false });
-    
-    if (error) {
-      console.error('Error fetching achievements:', error);
-    } else {
-      setAchievements(data);
-    }
-  };
-
   const handleAddAchievement = async (e) => {
     e.preventDefault();
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    const { error } = await supabase
-      .from('achievements')
-      .insert([{
-        title: newAchievement.title,
-        description: newAchievement.description,
-        user_id: user.id
-      }]);
-
-    if (error) {
-      console.error('Error adding achievement:', error);
-    } else {
+    try {
+      await achievementService.create(newAchievement);
       setNewAchievement({ title: '', description: '' });
       setShowForm(false);
       fetchAchievements();
+    } catch (error) {
+      console.error('Error adding achievement:', error);
     }
   };
 
@@ -152,6 +141,22 @@ const Dashboard = () => {
             </p>
           </div>
         </div>
+
+        <div className="chart-section">
+           <h2>Achievement Trends</h2>
+            <Line data={getChartData()} options={{
+                 responsive: true,
+                    plugins: {
+                      legend: {
+                          position: 'top',
+           },
+          title: {
+            display: true,
+              text: 'Daily Achievement Count'
+            }
+           }
+      }} />
+    </div>
 
 
         <div className="recent-achievements">

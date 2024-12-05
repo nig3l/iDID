@@ -1,9 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { supabase } from '../config/supabaseClient';
+import { useAuth } from '../context/AuthContext';
 
 const PrivateRoute = ({ children }) => {
-  const session = supabase.auth.getSession();
-
+  const { session } = useAuth();
   return session ? children : <Navigate to="/auth" />;
 };
 
