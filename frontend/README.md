@@ -1,2 +1,1 @@
-
-Lead dev - {nigel}
+frontend for the site

@@ -1,18 +1,11 @@
 import React from 'react';
-import './LandingPage.css';
+import NavbarLanding from '../Navbar/NavbarLanding';
 import './Pricing.css';
 
 const Pricing = () => {
   return (
     <div className="landing-container">
-      <header className="landing-header">
-        <div className="logo">iDID</div>
-        <nav className="navigation">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/pricing">Pricing</a>
-        </nav>
-      </header>
+      <NavbarLanding />
       <main className="landing-content">
         <div className="pricing-container">
           <h1>Simple, Transparent Pricing</h1>

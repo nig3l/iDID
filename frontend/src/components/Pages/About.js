@@ -1,19 +1,12 @@
 import React from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import './LandingPage.css';
+import NavbarLanding from '../Navbar/NavbarLanding';
 import './About.css';
 
 const About = () => {
   return (
     <div className="landing-container">
-      <header className="landing-header">
-        <div className="logo">iDID</div>
-        <nav className="navigation">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/pricing">Pricing</a>
-        </nav>
-      </header>
+      <NavbarLanding />
       <main className="about-content">
         <section className="mission-section">
           <h1>Why iDID Exists</h1>
