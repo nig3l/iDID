@@ -17,13 +17,25 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const authService = {
-  login: (email, password) => 
-    api.post('/auth/login', { email, password }),
+ export const authService = {
+  login: async (email, password) => {
+    const response = await api.post('/auth/login', { email, password });
+    if (response.data.access_token) {
+      localStorage.setItem('token', response.data.access_token);
+    }
+    return response;
+  },
   
-  signup: (email, password) =>
-    api.post('/auth/signup', { email, password }),
+  signup: async (email, password) => {
+    const response = await api.post('/auth/signup', { email, password });
+    return response;
+  },
+
+  logout: () => {
+    localStorage.removeItem('token');
+  }
 };
+
 
 export const achievementService = {
   getAll: () => 

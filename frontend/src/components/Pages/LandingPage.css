@@ -1,39 +1,78 @@
-.landing-container {
-    background: linear-gradient(135deg, #f5f1eb 0%, #e8e4ff 100%);
+.landing-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); 
+  padding: 2rem;
+}
+
+
+ .landing-container {
+    background: linear-gradient(-45deg, #f5f1eb, #e8e4ff, #f0e5ff, #e8e4ff);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
     min-height: 100vh;
     padding: 0 2rem;
-  }
-  
-  .landing-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 0;
+}
 
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+ 
+.tagline-section {
+  margin: 1.5rem 0;
+}
+
+.main-tagline {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  color: #2D3436;
+}
+
+.audience-benefits {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 1.5rem;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.audience-benefits p {
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #2D3436;
+}
+
+@media (max-width: 768px) {
+  .main-tagline {
+      font-size: 1.2rem;
   }
   
-  .logo {
-    font-size: 2rem;
-    font-weight: 800;
-    background: linear-gradient(45deg, #2D3436, #000000);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .audience-benefits p {
+      font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-content {
+      padding: 1rem;
   }
   
-  .navigation {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
+  .text-content {
+      padding: 2rem;
   }
-  
-  .navigation a {
-    color: #2D3436;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-  
+}
+
+ 
   .cta-button {
     background: #000;
     color: white !important;
@@ -46,46 +85,93 @@
     transform: translateY(-2px);
   }
   
-  .text-content {
-    max-width: 600px;
-    margin: 8rem 0;
-  }
   
+  .text-content {
+    max-width: 800px;
+    width: 100%;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    animation: float 2s ease-in-out infinite;
+    
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+
   .text-content h1 {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     line-height: 1.1;
     margin-bottom: 1.5rem;
     background: linear-gradient(45deg, #2D3436, #000000);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* color: #000; */
-  }
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    letter-spacing: -1px;
+}
+
   
   .cta-section {
-    margin-top: 3rem;
+    margin-top: 1.5rem;
     display: flex;
     gap: 5rem;
   }
   
+
   .primary-button, .secondary-button {
     padding: 1rem 2rem;
     border-radius: 25px;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.3s ease;
-  }
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
   
-  .primary-button {
-    background: #000;
-    color: white;
-    border: none;
-  }
+
+
+.primary-button {
+  background: linear-gradient(45deg, #000000, #2D3436);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
   
+ 
   .secondary-button {
     background: transparent;
     border: 2px solid #000;
-  }
+    position: relative;
+    z-index: 1;
+}
+
+.secondary-button:hover {
+  color: white;
+}
+
+.secondary-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: #000;
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+.secondary-button:hover::before {
+  width: 100%;
+}
   
   .primary-button:hover, .secondary-button:hover {
     transform: translateY(-2px);

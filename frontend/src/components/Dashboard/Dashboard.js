@@ -57,25 +57,25 @@ const Dashboard = () => {
     try {
       // Explicit logging of the data being sent
       console.log('Sending achievement data:', {
-        title: newAchievement.subject,  // Ensure this is a non-empty string
+        title: newAchievement.title,  // Ensure this is a non-empty string
         description: newAchievement.description
       });
   
       // Validate input before sending
-      if (!newAchievement.subject || newAchievement.subject.trim() === '') {
+      if (!newAchievement.title || newAchievement.title.trim() === '') {
         alert('Please enter a title for your achievement');
         return;
       }
   
       const response = await achievementService.create({
-        title: newAchievement.subject.trim(),  // Trim to remove any whitespace
+        title: newAchievement.title.trim(),  // Trim to remove any whitespace
         description: newAchievement.description || ''  // Provide a default empty string
       });
       
       console.log('Full create achievement response:', response);
       
       // Reset form and refresh achievements
-      setNewAchievement({ subject: '', description: '' });
+      setNewAchievement({ title: '', description: '' });
       setShowForm(false);
       fetchAchievements();
     } catch (error) {

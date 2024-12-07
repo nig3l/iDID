@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import './Navbar.css';
 
 const NavbarLanding = ({ onSignup }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   return (
-    <header className="landing-header">
-      <div className="logo">iDID</div>
-      <div className="menu-icon" onClick={toggleMenu}>
+    <header className="navbar">
+      <Link to="/" className="nav-logo">iDID</Link>
+      <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         {isMenuOpen ? <FaTimes /> : <FaBars />}
       </div>
-      <nav className={`navigation ${isMenuOpen ? 'active' : ''}`}>
-        <a href="/about">About</a>
-        <a href="/pricing">Pricing</a>
-        {/* <a className="cta-button" onClick={onSignup}>Sign Up</a> */}
+      <nav className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+        <Link to="/about">About</Link>
+        <Link to="/pricing">Pricing</Link>
+        <Link to="/auth" className="active">Sign Up</Link>
       </nav>
     </header>
   );
 };
 
 export default NavbarLanding;
+
