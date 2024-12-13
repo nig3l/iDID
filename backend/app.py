@@ -2,15 +2,17 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from models import db, User, Achievement
+from flask_migrate import Migrate
 from datetime import timedelta
 
 app = Flask(__name__)
 
 CORS(app, resources={
     r"/*": {
-        "origins": "http://localhost:3000",
+        "origins": ["http://localhost:3000", "http://127.0.0.1:3000"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"]
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
     }
 })
 
@@ -19,6 +21,10 @@ app.config['JWT_SECRET_KEY'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 jwt = JWTManager(app)
 db.init_app(app)
+
+from flask_migrate import Migrate
+
+migrate = Migrate(app, db)
 
 @app.route('/auth/signup', methods=['POST'])
 def signup():
@@ -46,6 +52,25 @@ def delete_user(email):
         db.session.commit()
         return jsonify({'message': 'User deleted successfully'})
     return jsonify({'error': 'User not found'}), 404
+
+
+@app.route('/profile', methods=['GET', 'PUT'])
+@jwt_required()
+def profile():
+    user_id = int(get_jwt_identity())
+    user = User.query.get(user_id)
+    
+    if request.method == 'GET':
+        return jsonify(user.to_dict())
+    
+    if request.method == 'PUT':
+        data = request.json
+        user.username = data.get('username', user.username)
+        user.bio = data.get('bio', user.bio)
+        user.avatar_url = data.get('avatar_url', user.avatar_url)
+        db.session.commit()
+        return jsonify(user.to_dict())
+
 
 
 @app.route('/achievements', methods=['GET', 'POST'])

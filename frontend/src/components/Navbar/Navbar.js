@@ -21,6 +21,13 @@ const Navbar = () => {
         >
           History
         </Link>
+        <Link 
+          to="/profile" 
+          className={location.pathname === '/profile' ? 'active' : ''}
+         >
+          Profile
+        </Link>
+
       </nav>
     </header>
   );

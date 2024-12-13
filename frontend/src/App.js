@@ -8,6 +8,7 @@ import History from './components/Dashboard/History';
 import PrivateRoute from './components/Private/PrivateRoute';
 import About from './components/Pages/About';
 import Pricing from './components/Pages/Pricing';
+import Profile from './components/Profile/Profile';
 
 function App() {
   const {session } = useAuth();
@@ -31,6 +32,12 @@ function App() {
               <History />
             </PrivateRoute>
           } />
+          <Route path="/profile" element={
+            <PrivateRoute>
+             <Profile />
+            </PrivateRoute>
+           } />
+
         </Routes>
       </Router>
     </AuthProvider>
