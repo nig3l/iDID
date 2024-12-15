@@ -82,14 +82,14 @@ const Dashboard = () => {
       // Comprehensive error logging
       console.error('Error in handleAddAchievement:', error);
       
-      // More detailed error information
+
       if (error.response) {
-        // The request was made and the server responded with a status code
+       
         console.error('Error response data:', error.response.data);
         console.error('Error response status:', error.response.status);
         console.error('Error response headers:', error.response.headers);
         
-        // Show user-friendly error message
+      
         alert(`Failed to add achievement: ${error.response.data.msg || 'Unknown error'}`);
       } else if (error.request) {
         // The request was made but no response was received

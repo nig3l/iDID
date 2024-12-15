@@ -52,27 +52,7 @@
   color: #2D3436;
 }
 
-@media (max-width: 768px) {
-  .main-tagline {
-      font-size: 1.2rem;
-  }
-  
-  .audience-benefits p {
-      font-size: 1rem;
-  }
-}
 
-@media (max-width: 768px) {
-  .landing-content {
-      padding: 1rem;
-  }
-  
-  .text-content {
-      padding: 2rem;
-  }
-}
-
- 
   .cta-button {
     background: #000;
     color: white !important;
@@ -256,3 +236,24 @@
     }
   }
   
+  @media (max-width: 768px) {
+    .main-tagline {
+        font-size: 1.2rem;
+    }
+    
+    .audience-benefits p {
+        font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .landing-content {
+        padding: 1rem;
+    }
+    
+    .text-content {
+        padding: 2rem;
+    }
+  }
+  
+   
