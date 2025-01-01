@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/NavbarLanding';
-import gsap from 'gsap';
 import './LandingPage.css';
 
 const LandingPage = () => {
