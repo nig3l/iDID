@@ -57,7 +57,7 @@ const Dashboard = () => {
     try {
       // Explicit logging of the data being sent
       console.log('Sending achievement data:', {
-        title: newAchievement.title,  // Ensure this is a non-empty string
+        title: newAchievement.title,  
         description: newAchievement.description
       });
   
@@ -69,7 +69,7 @@ const Dashboard = () => {
   
       const response = await achievementService.create({
         title: newAchievement.title.trim(),  // Trim to remove any whitespace
-        description: newAchievement.description || ''  // Provide a default empty string
+        description: newAchievement.description || ''  
       });
       
       console.log('Full create achievement response:', response);
