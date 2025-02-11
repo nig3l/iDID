@@ -145,14 +145,14 @@
     color: #666;
     font-size: 0.9rem;
   }
-
 .header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  margin-top: 5rem;
+  padding-top: 1rem;
 }
-
 .add-achievement-btn {
   background: #000;
   color: white;
@@ -227,15 +227,19 @@
 
 /* History.js Styles */
 .history-container {
-    padding: 2rem;
-  }
-  
-  .history-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
   
   .filter-buttons {
     display: flex;
