@@ -1,6 +1,9 @@
 services:
   - type: web
     name: idid-backend
-    runtime: python
-    buildCommand: poetry install
-    startCommand: poetry run python3 app.py
+    env: python
+    buildCommand: cd backend && pip install poetry && poetry install
+    startCommand: cd backend && gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
